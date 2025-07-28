@@ -9,7 +9,7 @@ const App = () => {
     title: "",
     price: "",
     ratingPeople: "",
-    image: null,
+    image: "",
   });
 
   const handleChange = (e) => {
@@ -25,10 +25,14 @@ const App = () => {
 
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-   await axios.post("http://localhost:3632/addProduct",formData)
+    await axios.post("http://localhost:3632/addProduct", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    })
 
     console.log(formData)
     alert("Form submitted with image!");
