@@ -19,10 +19,11 @@
 
 // module.exports = { storage };
 
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 const dotenv = require("dotenv");
+
 dotenv.config();
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 cloudinary.config({
   cloud_name: process.env.cloud_name,
@@ -35,7 +36,15 @@ const storage = new CloudinaryStorage({
   params: {
     folder: "cloudinaryDemo",
     allowed_formats: ["jpeg", "png", "jpg"],
+    transformation: [
+      {
+        width: 800,         // Resize width
+        crop: "scale",      // Resize type
+        quality: "auto",    // Auto compression
+        fetch_format: "auto" // Auto format (webp, etc.)
+      },
+    ],
   },
 });
 
-module.exports = { storage };
+module.exports =  storage ;
